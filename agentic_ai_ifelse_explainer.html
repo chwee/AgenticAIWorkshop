@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>From if-else to Agentic AI</title>
+<style>
+  :root{
+    --bg:#f7f7f5;
+    --surface:#ffffff;
+    --ink:#1c1c1e;
+    --ink-secondary:#5b5b60;
+    --ink-muted:#8a8a90;
+    --line:#d9d9dc;
+    --rigid:#5b6472;      /* classical - slate */
+    --rigid-light:#e4e7ec;
+    --chaos:#c4472b;      /* complexity explosion - burnt orange/red */
+    --chaos-light:#fbe6e0;
+    --agentic:#1f7a5c;    /* agentic - green */
+    --agentic-light:#deefe7;
+    --accent-blue:#2b5fc4;
+    --accent-blue-light:#e2eaf9;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .page{
+    max-width:1180px;
+    margin:0 auto;
+    padding:48px 32px 80px;
+  }
+  header.hero{
+    text-align:center;
+    margin-bottom:56px;
+  }
+  header.hero .eyebrow{
+    font-size:13px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--ink-muted);
+    font-weight:600;
+    margin-bottom:10px;
+  }
+  header.hero h1{
+    font-size:34px;
+    line-height:1.25;
+    margin:0 0 12px;
+    font-weight:700;
+    letter-spacing:-0.01em;
+  }
+  header.hero p{
+    font-size:16px;
+    color:var(--ink-secondary);
+    max-width:720px;
+    margin:0 auto;
+    line-height:1.55;
+  }
+
+  .panel{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:36px 40px 40px;
+    margin-bottom:32px;
+  }
+  .panel-head{
+    display:flex;
+    align-items:flex-start;
+    gap:16px;
+    margin-bottom:24px;
+  }
+  .num{
+    flex:0 0 auto;
+    width:40px;
+    height:40px;
+    border-radius:10px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:700;
+    font-size:18px;
+    color:#fff;
+  }
+  .num.rigid{background:var(--rigid);}
+  .num.chaos{background:var(--chaos);}
+  .num.agentic{background:var(--agentic);}
+
+  .panel-head h2{
+    margin:0 0 4px;
+    font-size:22px;
+    font-weight:700;
+  }
+  .panel-head .sub{
+    font-size:14.5px;
+    color:var(--ink-secondary);
+    line-height:1.5;
+    max-width:760px;
+  }
+
+  .tag{
+    display:inline-block;
+    font-size:11.5px;
+    font-weight:700;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    padding:3px 9px;
+    border-radius:999px;
+    margin-left:8px;
+    vertical-align:middle;
+  }
+  .tag.rigid{background:var(--rigid-light);color:var(--rigid);}
+  .tag.chaos{background:var(--chaos-light);color:var(--chaos);}
+  .tag.agentic{background:var(--agentic-light);color:var(--agentic);}
+
+  svg{display:block;margin:0 auto;max-width:100%;height:auto;}
+  .cap{
+    margin-top:18px;
+    font-size:13.5px;
+    color:var(--ink-secondary);
+    line-height:1.6;
+    background:var(--bg);
+    border-radius:10px;
+    padding:14px 18px;
+  }
+  .cap b{color:var(--ink);}
+
+  .foot-row{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    gap:16px;
+    margin-top:8px;
+  }
+  .foot-card{
+    border-radius:12px;
+    padding:16px 18px;
+    font-size:13px;
+    line-height:1.55;
+  }
+  .foot-card.rigid{background:var(--rigid-light);color:#3c434d;}
+  .foot-card.chaos{background:var(--chaos-light);color:#7c2e1c;}
+  .foot-card.agentic{background:var(--agentic-light);color:#124a37;}
+  .foot-card b{display:block;font-size:12.5px;text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px;}
+
+  .closing{
+    margin-top:40px;
+    text-align:center;
+  }
+  .closing h3{font-size:19px;margin:0 0 10px;}
+  .closing p{font-size:14.5px;color:var(--ink-secondary);max-width:760px;margin:0 auto;line-height:1.6;}
+
+  code.inline{
+    background:#eef0f2;
+    border-radius:4px;
+    padding:1px 6px;
+    font-size:.92em;
+    font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="hero">
+    <div class="eyebrow">From hardcoded logic to autonomous reasoning</div>
+    <h1>What Agentic AI Really Changes About <span style="white-space:nowrap;">if&nbsp;/&nbsp;else</span></h1>
+    <p>The conditional branch didn't disappear when AI got "agentic" — it moved. Classical software hand-writes every branch in advance. Agentic AI keeps the same underlying idea of "check a condition, choose a path" but lets a reasoning model generate and evaluate the conditions on the fly, so the system can handle situations nobody wrote a rule for.</p>
+  </header>
+
+  <!-- PANEL 1: CLASSICAL -->
+  <section class="panel">
+    <div class="panel-head">
+      <div class="num rigid">1</div>
+      <div>
+        <h2>Classical software: the if&#8209;else decision tree <span class="tag rigid">Deterministic</span></h2>
+        <div class="sub">Every possible path is anticipated and written by a developer ahead of time. The program only knows the branches it was explicitly given.</div>
+      </div>
+    </div>
+
+    <svg viewBox="0 0 1080 300" xmlns="http://www.w3.org/2000/svg">
+      <!-- root -->
+      <rect x="470" y="10" width="140" height="46" rx="8" fill="#eef1f4" stroke="#5b6472" stroke-width="1.5"/>
+      <text x="540" y="38" text-anchor="middle" font-size="13" font-weight="700" fill="#1c1c1e">Input arrives</text>
+
+      <!-- decision 1 -->
+      <polygon points="540,80 610,118 540,156 470,118" fill="#e4e7ec" stroke="#5b6472" stroke-width="1.5"/>
+      <text x="540" y="113" text-anchor="middle" font-size="12" font-weight="700" fill="#1c1c1e">if (condition A)</text>
+      <text x="540" y="129" text-anchor="middle" font-size="11" fill="#5b5b60">is X true?</text>
+
+      <!-- lines to decision1 -->
+      <line x1="540" y1="56" x2="540" y2="80" stroke="#8a8a90" stroke-width="1.5"/>
+
+      <!-- left branch true -->
+      <line x1="490" y1="140" x2="260" y2="200" stroke="#8a8a90" stroke-width="1.5"/>
+      <text x="360" y="163" font-size="11" fill="#5b6472" font-weight="700">true</text>
+      <polygon points="260,180 330,208 260,236 190,208" fill="#e4e7ec" stroke="#5b6472" stroke-width="1.5"/>
+      <text x="260" y="203" text-anchor="middle" font-size="12" font-weight="700" fill="#1c1c1e">else if (B)</text>
+      <text x="260" y="219" text-anchor="middle" font-size="11" fill="#5b5b60">is Y true?</text>
+
+      <!-- right branch false -->
+      <line x1="590" y1="140" x2="820" y2="200" stroke="#8a8a90" stroke-width="1.5"/>
+      <text x="710" y="163" font-size="11" fill="#5b6472" font-weight="700">false</text>
+      <polygon points="820,180 890,208 820,236 750,208" fill="#e4e7ec" stroke="#5b6472" stroke-width="1.5"/>
+      <text x="820" y="203" text-anchor="middle" font-size="12" font-weight="700" fill="#1c1c1e">else if (C)</text>
+      <text x="820" y="219" text-anchor="middle" font-size="11" fill="#5b5b60">is Z true?</text>
+
+      <!-- leaves from B -->
+      <line x1="230" y1="228" x2="120" y2="270" stroke="#8a8a90" stroke-width="1.5"/>
+      <rect x="40" y="270" width="150" height="20" rx="10" fill="#fff" stroke="#5b6472" stroke-width="1.3"/>
+      <text x="115" y="284" text-anchor="middle" font-size="10.5" font-weight="700" fill="#1c1c1e">run Handler 1</text>
+
+      <line x1="290" y1="228" x2="330" y2="270" stroke="#8a8a90" stroke-width="1.5"/>
+      <rect x="255" y="270" width="150" height="20" rx="10" fill="#fff" stroke="#5b6472" stroke-width="1.3"/>
+      <text x="330" y="284" text-anchor="middle" font-size="10.5" font-weight="700" fill="#1c1c1e">run Handler 2</text>
+
+      <!-- leaves from C -->
+      <line x1="790" y1="228" x2="740" y2="270" stroke="#8a8a90" stroke-width="1.5"/>
+      <rect x="670" y="270" width="150" height="20" rx="10" fill="#fff" stroke="#5b6472" stroke-width="1.3"/>
+      <text x="745" y="284" text-anchor="middle" font-size="10.5" font-weight="700" fill="#1c1c1e">run Handler 3</text>
+
+      <line x1="850" y1="228" x2="960" y2="270" stroke="#8a8a90" stroke-width="1.5"/>
+      <rect x="885" y="270" width="150" height="20" rx="10" fill="#fff" stroke="#5b6472" stroke-width="1.3"/>
+      <text x="960" y="284" text-anchor="middle" font-size="10.5" font-weight="700" fill="#1c1c1e">else: default error</text>
+    </svg>
+
+    <div class="cap"><b>How to read this:</b> the developer draws the whole tree before the program ever runs. Each diamond is a rule someone wrote, each box at the bottom is a pre-built outcome. If the real world hands the program a situation that doesn't match any branch, it falls into the <code class="inline">else</code> — often a generic error or a wrong answer, because nobody drew that branch.</div>
+  </section>
+
+  <!-- PANEL 2: COMPLEXITY EXPLOSION -->
+  <section class="panel">
+    <div class="panel-head">
+      <div class="num chaos">2</div>
+      <div>
+        <h2>What happens as scenarios multiply <span class="tag chaos">Combinatorial explosion</span></h2>
+        <div class="sub">Real-world conditions are rarely just A, B or C — they combine. Every new variable a developer wants to account for multiplies the number of branches needed, not adds to it.</div>
+      </div>
+    </div>
+
+    <svg viewBox="0 0 1080 340" xmlns="http://www.w3.org/2000/svg">
+      <rect x="470" y="6" width="140" height="36" rx="8" fill="#fbe6e0" stroke="#c4472b" stroke-width="1.5"/>
+      <text x="540" y="29" text-anchor="middle" font-size="12" font-weight="700" fill="#7c2e1c">Input arrives</text>
+      <line x1="540" y1="42" x2="540" y2="60" stroke="#c4472b" stroke-width="1.3"/>
+
+      <!-- generate a fanned tangled tree -->
+      <g stroke="#e08a6f" stroke-width="1.1" fill="none">
+        <!-- level 1 -->
+        <path d="M540,60 L200,110"/>
+        <path d="M540,60 L380,110"/>
+        <path d="M540,60 L540,110"/>
+        <path d="M540,60 L700,110"/>
+        <path d="M540,60 L880,110"/>
+      </g>
+      <g fill="#c4472b">
+        <circle cx="200" cy="112" r="5"/>
+        <circle cx="380" cy="112" r="5"/>
+        <circle cx="540" cy="112" r="5"/>
+        <circle cx="700" cy="112" r="5"/>
+        <circle cx="880" cy="112" r="5"/>
+      </g>
+
+      <!-- level 2: each spawns 3-4, increasingly tangled and crossing -->
+      <g stroke="#eab7a4" stroke-width="1" fill="none">
+        <path d="M200,112 L90,165"/>
+        <path d="M200,112 L160,165"/>
+        <path d="M200,112 L250,165"/>
+        <path d="M200,112 L330,165"/>
+
+        <path d="M380,112 L300,165"/>
+        <path d="M380,112 L400,165"/>
+        <path d="M380,112 L470,165"/>
+
+        <path d="M540,112 L440,165"/>
+        <path d="M540,112 L540,165"/>
+        <path d="M540,112 L610,165"/>
+        <path d="M540,112 L690,165"/>
+
+        <path d="M700,112 L620,165"/>
+        <path d="M700,112 L760,165"/>
+        <path d="M700,112 L830,165"/>
+
+        <path d="M880,112 L790,165"/>
+        <path d="M880,112 L900,165"/>
+        <path d="M880,112 L980,165"/>
+        <path d="M880,112 L1030,165"/>
+      </g>
+      <g fill="#d97b5c">
+        <circle cx="90" cy="167" r="3.5"/><circle cx="160" cy="167" r="3.5"/><circle cx="250" cy="167" r="3.5"/><circle cx="330" cy="167" r="3.5"/>
+        <circle cx="300" cy="167" r="3.5"/><circle cx="400" cy="167" r="3.5"/><circle cx="470" cy="167" r="3.5"/>
+        <circle cx="440" cy="167" r="3.5"/><circle cx="540" cy="167" r="3.5"/><circle cx="610" cy="167" r="3.5"/><circle cx="690" cy="167" r="3.5"/>
+        <circle cx="620" cy="167" r="3.5"/><circle cx="760" cy="167" r="3.5"/><circle cx="830" cy="167" r="3.5"/>
+        <circle cx="790" cy="167" r="3.5"/><circle cx="900" cy="167" r="3.5"/><circle cx="980" cy="167" r="3.5"/><circle cx="1030" cy="167" r="3.5"/>
+      </g>
+
+      <!-- level 3: dense chaotic crossing lines, thin, many -->
+      <g stroke="#f0cabb" stroke-width="0.8" fill="none">
+        <path d="M90,167 L40,225"/><path d="M90,167 L120,225"/>
+        <path d="M160,167 L150,225"/><path d="M160,167 L200,225"/>
+        <path d="M250,167 L230,225"/><path d="M250,167 L280,225"/>
+        <path d="M330,167 L310,225"/><path d="M330,167 L360,225"/>
+        <path d="M300,167 L340,225"/><path d="M400,167 L390,225"/>
+        <path d="M470,167 L440,225"/><path d="M470,167 L500,225"/>
+        <path d="M440,167 L420,225"/><path d="M540,167 L530,225"/>
+        <path d="M540,167 L560,225"/><path d="M610,167 L600,225"/>
+        <path d="M690,167 L650,225"/><path d="M690,167 L700,225"/>
+        <path d="M620,167 L640,225"/><path d="M760,167 L740,225"/>
+        <path d="M760,167 L790,225"/><path d="M830,167 L810,225"/>
+        <path d="M830,167 L860,225"/><path d="M790,167 L820,225"/>
+        <path d="M900,167 L880,225"/><path d="M900,167 L920,225"/>
+        <path d="M980,167 L960,225"/><path d="M980,167 L1000,225"/>
+        <path d="M1030,167 L1010,225"/><path d="M1030,167 L1050,225"/>
+      </g>
+      <g fill="#e6a58c">
+        <circle cx="40" cy="227" r="2.4"/><circle cx="120" cy="227" r="2.4"/><circle cx="150" cy="227" r="2.4"/><circle cx="200" cy="227" r="2.4"/>
+        <circle cx="230" cy="227" r="2.4"/><circle cx="280" cy="227" r="2.4"/><circle cx="310" cy="227" r="2.4"/><circle cx="360" cy="227" r="2.4"/>
+        <circle cx="340" cy="227" r="2.4"/><circle cx="390" cy="227" r="2.4"/><circle cx="440" cy="227" r="2.4"/><circle cx="500" cy="227" r="2.4"/>
+        <circle cx="420" cy="227" r="2.4"/><circle cx="530" cy="227" r="2.4"/><circle cx="560" cy="227" r="2.4"/><circle cx="600" cy="227" r="2.4"/>
+        <circle cx="650" cy="227" r="2.4"/><circle cx="700" cy="227" r="2.4"/><circle cx="640" cy="227" r="2.4"/><circle cx="740" cy="227" r="2.4"/>
+        <circle cx="790" cy="227" r="2.4"/><circle cx="810" cy="227" r="2.4"/><circle cx="860" cy="227" r="2.4"/><circle cx="820" cy="227" r="2.4"/>
+        <circle cx="880" cy="227" r="2.4"/><circle cx="920" cy="227" r="2.4"/><circle cx="960" cy="227" r="2.4"/><circle cx="1000" cy="227" r="2.4"/>
+        <circle cx="1010" cy="227" r="2.4"/><circle cx="1050" cy="227" r="2.4"/>
+      </g>
+
+      <!-- warning banner -->
+      <rect x="300" y="255" width="480" height="60" rx="10" fill="#c4472b"/>
+      <text x="540" y="278" text-anchor="middle" font-size="13" font-weight="700" fill="#fff">Rule count grows exponentially, not linearly</text>
+      <text x="540" y="298" text-anchor="middle" font-size="11.5" fill="#fbe6e0">5 variables x 4 states each &#8776; 1,024 branch combinations to hand-write</text>
+    </svg>
+
+    <div class="cap"><b>This is "if-else hell."</b> Add one more real-world variable — a new customer type, a new locale, a new exception — and the branches don't grow by one, they multiply against every existing branch. Past a certain size the tree becomes impossible to fully write, test, or even read. Untested combinations silently fall through to wrong behavior, and nobody can say with confidence what the program does for a case they didn't foresee.</div>
+  </section>
+
+  <!-- PANEL 3: AGENTIC AI -->
+  <section class="panel">
+    <div class="panel-head">
+      <div class="num agentic">3</div>
+      <div>
+        <h2>Agentic AI: the same if&#8209;else idea, generated on the fly <span class="tag agentic">Adaptive</span></h2>
+        <div class="sub">An agent doesn't hard-code the branches — it reasons about which condition applies right now, then acts, observes the result, and loops. The "if" is written by the model, at runtime, for the situation actually in front of it.</div>
+      </div>
+    </div>
+
+    <svg viewBox="0 0 1080 380" xmlns="http://www.w3.org/2000/svg">
+      <!-- loop circle layout -->
+      <!-- nodes -->
+      <!-- Goal / Input -->
+      <rect x="60" y="160" width="150" height="60" rx="12" fill="#deefe7" stroke="#1f7a5c" stroke-width="1.6"/>
+      <text x="135" y="184" text-anchor="middle" font-size="12.5" font-weight="700" fill="#124a37">Goal / Input</text>
+      <text x="135" y="200" text-anchor="middle" font-size="10.5" fill="#1f7a5c">(open-ended situation)</text>
+
+      <!-- Reason node -->
+      <rect x="300" y="80" width="220" height="90" rx="12" fill="#fff" stroke="#1f7a5c" stroke-width="1.8"/>
+      <text x="410" y="106" text-anchor="middle" font-size="12.5" font-weight="700" fill="#124a37">Reason (LLM)</text>
+      <text x="410" y="124" text-anchor="middle" font-size="10.5" fill="#5b5b60">"if situation looks like ___,</text>
+      <text x="410" y="139" text-anchor="middle" font-size="10.5" fill="#5b5b60">then the right move is ___"</text>
+      <text x="410" y="156" text-anchor="middle" font-size="10" fill="#1f7a5c" font-weight="700">condition generated at runtime</text>
+
+      <!-- Act node -->
+      <rect x="620" y="80" width="200" height="90" rx="12" fill="#fff" stroke="#1f7a5c" stroke-width="1.8"/>
+      <text x="720" y="106" text-anchor="middle" font-size="12.5" font-weight="700" fill="#124a37">Act</text>
+      <text x="720" y="124" text-anchor="middle" font-size="10.5" fill="#5b5b60">call a tool / API /</text>
+      <text x="720" y="139" text-anchor="middle" font-size="10.5" fill="#5b5b60">take an action in the world</text>
+
+      <!-- Observe node -->
+      <rect x="880" y="200" width="160" height="70" rx="12" fill="#deefe7" stroke="#1f7a5c" stroke-width="1.6"/>
+      <text x="960" y="228" text-anchor="middle" font-size="12.5" font-weight="700" fill="#124a37">Observe</text>
+      <text x="960" y="245" text-anchor="middle" font-size="10.5" fill="#1f7a5c">result / new state</text>
+
+      <!-- Evaluate / branch node -->
+      <polygon points="720,280 800,320 720,360 640,320" fill="#deefe7" stroke="#1f7a5c" stroke-width="1.6"/>
+      <text x="720" y="316" text-anchor="middle" font-size="11.5" font-weight="700" fill="#124a37">Goal met?</text>
+      <text x="720" y="332" text-anchor="middle" font-size="10" fill="#1f7a5c">re-checked each loop</text>
+
+      <!-- arrows -->
+      <defs>
+        <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0,0 L10,5 L0,10 z" fill="#1f7a5c"/>
+        </marker>
+      </defs>
+      <path d="M210,180 Q255,140 300,125" fill="none" stroke="#1f7a5c" stroke-width="1.8" marker-end="url(#arrow)"/>
+      <path d="M520,125 L620,125" fill="none" stroke="#1f7a5c" stroke-width="1.8" marker-end="url(#arrow)"/>
+      <path d="M790,170 Q860,190 900,205" fill="none" stroke="#1f7a5c" stroke-width="1.8" marker-end="url(#arrow)"/>
+      <path d="M930,270 Q850,300 800,312" fill="none" stroke="#1f7a5c" stroke-width="1.8" marker-end="url(#arrow)"/>
+      <!-- loop back to reason if not met -->
+      <path d="M660,300 Q380,290 400,175" fill="none" stroke="#1f7a5c" stroke-width="1.8" stroke-dasharray="5,4" marker-end="url(#arrow)"/>
+      <text x="440" y="235" font-size="10.5" font-weight="700" fill="#1f7a5c">no &#8594; re-reason with new info</text>
+      <!-- done -->
+      <path d="M700,360 Q400,420 150,270" fill="none" stroke="#1f7a5c" stroke-width="1.8" marker-end="url(#arrow)"/>
+      <text x="330" y="410" font-size="11" font-weight="700" fill="#124a37">yes &#8594; final answer / done</text>
+
+      <!-- bottom callout -->
+      <rect x="60" y="0" width="1000" height="0" fill="none"/>
+    </svg>
+
+    <div class="cap"><b>The key shift:</b> the diamond-shaped decision from Panel 1 is still there — <code class="inline">if condition then action</code> is exactly how the "Reason" step works. What changed is <b>who writes the condition and when</b>. A classical program needs the developer to enumerate every "if" before deployment. An agent's language model drafts the matching condition itself, at the moment it sees the actual input, and can revise its own branch mid-task if the first attempt doesn't pan out. One flexible reasoning step stands in for the thousands of hardcoded branches Panel 2 would have needed.</div>
+
+    <div class="foot-row">
+      <div class="foot-card rigid"><b>Classical if-else</b>Fixed branches, written in advance. Fast and predictable inside known cases; blind outside them.</div>
+      <div class="foot-card chaos"><b>Complexity explosion</b>Branches multiply combinatorially with each new real-world variable, until the tree is unmaintainable.</div>
+      <div class="foot-card agentic"><b>Agentic AI</b>One reasoning loop generates the right "if" for the situation at hand, then observes and re-checks — trading a fixed rulebook for adaptive, self-correcting judgment.</div>
+    </div>
+  </section>
+
+  <div class="closing">
+    <h3>The through-line</h3>
+    <p>Agentic AI isn't a rejection of if-else logic — it's if-else logic freed from having to be fully specified ahead of time. The condition-then-action shape survives; what agentic systems add is a reasoning loop that can invent, test, and revise its own conditions on the fly, which is exactly what's needed once the number of real-world scenarios outgrows what any developer could hand-write.</p>
+  </div>
+
+</div>
+</body>
+</html>
